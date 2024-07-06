@@ -1,14 +1,26 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { useCategories } from '../api/category';
+import { createQuestions } from '../api/question';
+import { LEVEL } from '../constants/difficuity';
+
+type CategoryItem = {
+  id: number,
+  name: string
+}
+
+type DifficultyItem = {
+  value: string,
+  title: string,
+}
 
 function QuestionForm() {
-  const [selectedCategory, setCategory] = useState("1");
   const { categories, isLoading } = useCategories();
-  const [difficulty, setDifficulty] = useState('');
+  const [selectedCategory, setCategory] = useState("1");
+  const [selectedDifficulty, setDifficulty] = useState('');
 
   const handleChangecategory = (event: SelectChangeEvent) => {
     setCategory(event.target.value);
@@ -16,44 +28,73 @@ function QuestionForm() {
   const handleChangeceDifficuity = (event: SelectChangeEvent) => {
     setDifficulty(event.target.value);
   };
-  const CategoryItems = () => {
-    const list: any[] = [];
-    categories.forEach((item: any) => {
+
+  const handleCreateQuestion = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const params = {
+      amount: 5,
+      categoryId: selectedCategory,
+      difficultyLevel: selectedDifficulty,
+    }
+    const result = createQuestions(params);
+    console.log(result)
+  };
+
+  const categoryItems = () => {
+    const list: React.ReactNode[] = [];
+    categories.forEach((item: CategoryItem) => {
       list.push(
         <MenuItem key={item.id} value={item.id}>{item.name}</MenuItem>
       );
     });
     return list;
   }
+
+  const dificuityItems = () => {
+    const list: React.ReactNode[] = [];
+    LEVEL.forEach((item: DifficultyItem) => {
+      list.push(
+        <MenuItem key={item.value} value={item.value}>{item.title}</MenuItem>
+      );
+    });
+    return list;
+  }
+
   return (
     <>
       <div className='question-form'>
-        <FormControl sx={{ m: 1, minWidth: 200 }}>
+        <FormControl sx={{ m: 1, minWidth: 300 }}>
           {
             !isLoading ? <Select
-              id="question-form-category"
+              id="categorySelect"
               displayEmpty
               inputProps={{ 'aria-label': 'Without label' }}
               value={selectedCategory}
               onChange={handleChangecategory}
             >
-              {CategoryItems()}
+              {
+                categoryItems()
+              }
             </Select> : <></>
           }
         </FormControl>
         <FormControl sx={{ m: 1, minWidth: 100 }}>
           <Select
-            id="question-form-difficulty"
-            value={difficulty}
+            id="difficultySelect"
+            value={selectedDifficulty}
             onChange={handleChangeceDifficuity}
           >
-            <MenuItem value={'easy'}>Easy</MenuItem>
-            <MenuItem value={'medium'}>Medium</MenuItem>
-            <MenuItem value={'hard'}>Hard</MenuItem>
+            {
+              dificuityItems()
+            }
           </Select>
         </FormControl>
         <FormControl>
-          <Button variant="outlined" size="medium">
+          <Button
+            id="createBtn"
+            variant="outlined"
+            size="medium"
+            onClick={handleCreateQuestion}
+          >
             Create
           </Button>
         </FormControl>
