@@ -1,1 +1,2 @@
-export * from './difficuity'
+export * from './difficulty'
+export * from './finalScoreColor'

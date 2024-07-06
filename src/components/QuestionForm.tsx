@@ -22,14 +22,14 @@ function QuestionForm() {
     setDifficulty(event.target.value);
   };
 
-  const handleCreateQuestion = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleCreateQuestion = () => {
     const params = {
       amount: 5,
       categoryId: selectedCategory,
       difficultyLevel: selectedDifficulty,
     }
     const result = createQuestions(params);
-    console.log(result)
+    console.log(result);
   };
 
   const categoryItems = () => {
