@@ -1,24 +1,8 @@
 import axios from 'axios'
- // Define the parameters for the function
-interface CreateQuestionsParams {
-  amount: number;
-  categoryId: string;
-  difficultyLevel: string;
-}
-
-// Define the expected structure of the response data
-interface Question {
-  // Define the properties of a question based on your API response
-  question: string;
-  correct_answer: string;
-  incorrect_answers: string[];
-}
-
-interface ResponseData {
-  results: Question[];
-  response_code: number
-}
-
+import {
+  CreateQuestionsParams,
+  ResponseData
+} from '../types'
 const BASE_URL = "https://opentdb.com/api.php"
 // https://opentdb.com/api.php?amount=5&category=11&difficulty=easy&type=multiple
 

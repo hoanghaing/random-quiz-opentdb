@@ -3,23 +3,16 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { useCategories } from '../api/category';
-import { createQuestions } from '../api/question';
-import { LEVEL } from '../constants/difficuity';
-
-type CategoryItem = {
-  id: number,
-  name: string
-}
-
-type DifficultyItem = {
-  value: string,
-  title: string,
-}
+import { useCategories, createQuestions } from '../api';
+import { LEVEL } from '../constants';
+import {
+  CategoryItem,
+  DifficultyItem
+} from '../types';
 
 function QuestionForm() {
   const { categories, isLoading } = useCategories();
-  const [selectedCategory, setCategory] = useState("1");
+  const [selectedCategory, setCategory] = useState("");
   const [selectedDifficulty, setDifficulty] = useState('');
 
   const handleChangecategory = (event: SelectChangeEvent) => {
@@ -43,7 +36,7 @@ function QuestionForm() {
     const list: React.ReactNode[] = [];
     categories.forEach((item: CategoryItem) => {
       list.push(
-        <MenuItem key={item.id} value={item.id}>{item.name}</MenuItem>
+        <MenuItem key={`category-item-${item.id}`} value={item.id}>{item.name}</MenuItem>
       );
     });
     return list;
@@ -53,7 +46,7 @@ function QuestionForm() {
     const list: React.ReactNode[] = [];
     LEVEL.forEach((item: DifficultyItem) => {
       list.push(
-        <MenuItem key={item.value} value={item.value}>{item.title}</MenuItem>
+        <MenuItem key={`dificuity-item-${item.value}`} value={item.value}>{item.title}</MenuItem>
       );
     });
     return list;
