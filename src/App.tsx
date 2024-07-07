@@ -7,7 +7,7 @@ import MainLayout from './layouts/MainLayout';
 
 function App() {
   return (
-    <Router>
+    <Router basename={'/random-quiz-opentdb/'}>
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Creator />} />
