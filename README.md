@@ -33,7 +33,7 @@ Install all packages
 Start the server
 
 ```bash
-  npm install
+  npm run dev
 ```
 
 
