@@ -19,14 +19,18 @@ export interface AnswerProps {
   onClick: () => void;
 }
 
+
+export type ChoicesSelections = {
+  [key: number]: number;
+};
+
 export type TypeQuestion = {
   questionIndex: number,
   question: string,
   answers: string[]
+  submittedAnswers?: ChoicesSelections
+  blockClick?: boolean
 }
 
-export type AnswerSelections = {
-  [key: number]: number;
-};
 
 

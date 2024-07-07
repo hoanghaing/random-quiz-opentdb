@@ -5,17 +5,19 @@ import {
 } from '../../types'
 import './Question.css';
 import { useAtom } from 'jotai';
-import { answersAtom } from '../../stores';
+import { questionsAtom, choicesAtom } from '../../stores';
 
 function Question(props: TypeQuestion) {
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
-  const [answers, setAnswers] = useAtom(answersAtom)
+  const [choices, setChoices] = useAtom(choicesAtom)
+  const [questions, ] = useAtom(questionsAtom);
 
   const handleAnswerClick = (index: number) => {
+    if (props.blockClick) return;
     setSelectedAnswer(index);
-    const updatedAnswers = { ...answers };
-    updatedAnswers[`${props?.questionIndex}`] = index;
-    setAnswers(updatedAnswers)
+    const updatedChoices = { ...choices };
+    updatedChoices[`${props?.questionIndex}`] = index;
+    setChoices(updatedChoices)
   };
 
   return (
@@ -27,16 +29,16 @@ function Question(props: TypeQuestion) {
       </span>
       <div className="answer-group">
         {props.answers?.map((answer, index) => (
-          <Answer
+          (<Answer
             key={index}
             text={answer}
-            isSelected={selectedAnswer === index}
-            // isDanger={dangerAnswer === index}
+            isSelected={selectedAnswer === index || props?.submittedAnswers && props?.submittedAnswers[props.questionIndex] === index}
+            isDanger={props?.submittedAnswers && answer == questions[props.questionIndex].correct_answer}
             onClick={() => handleAnswerClick(index)}
           />
+          )
         ))}
       </div>
-      {/* { JSON.stringify(answers) } */}
     </div>
   )
 }

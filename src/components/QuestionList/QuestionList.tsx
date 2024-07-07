@@ -1,16 +1,21 @@
 import { Button } from '@mui/material';
 import Question from '../Question/Question'
-import { questionsAtom, answersAtom } from '../../stores';
+import { questionsAtom, choicesAtom } from '../../stores';
 import { useAtom } from 'jotai';
 import {
   NUM_OF_QUESTION
 } from '../../constants'
 import './QuestionList.css';
+import { useNavigate } from 'react-router-dom';
 
 function QuestionList() {
   const [questions,] = useAtom(questionsAtom);
-  const [answers,] = useAtom(answersAtom);
+  const [answers,] = useAtom(choicesAtom);
+  const navigate = useNavigate();
 
+  const handleSubmit = () => {
+    navigate('/result');
+  };
   const renderQuestionList = () => {
     const renderList: React.ReactNode[] = [];
 
@@ -26,11 +31,20 @@ function QuestionList() {
     })
     return renderList;
   }
+
   const renderSubmitButton = () => {
-    return Object.keys(answers).length === NUM_OF_QUESTION && <Button className="submit-button" variant="contained" fullWidth={true} disableElevation>
-      Submit
-    </Button>
+    return Object.keys(answers).length === NUM_OF_QUESTION && 
+      <Button
+        className="submit-button"
+        variant="contained"
+        fullWidth={true}
+        disableElevation
+        onClick={handleSubmit}
+      >
+        Submit
+      </Button>
   }
+
   return (
     <>
       {renderQuestionList()}

@@ -1,0 +1,20 @@
+.score-span {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 25rem;
+  height: 2rem;
+  margin-bottom: 1rem;
+}
+
+.success {
+  background-color: #09ed2f;
+}
+
+.danger {
+  background-color: #db1507;
+}
+
+.warning {
+  background-color: #faf60f;
+}

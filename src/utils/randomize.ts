@@ -2,7 +2,7 @@ import {
   ResponseQuestionItemType,
   ConvertedQuizItem
 } from '../types'
-import { shuffle } from 'lodash'; // Using lodash for shuffling the array
+import { shuffle } from 'lodash';
 
      
 export const randomizeAndGenerateQuestion = (response: ResponseQuestionItemType[]): ConvertedQuizItem[] => {
