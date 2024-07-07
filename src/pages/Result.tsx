@@ -1,8 +1,12 @@
+import PageTitle from '../components/PageTitle';
+import ResultList from '../components/ResultList/ResultList';
+
 function Result() {
 
   return (
     <>
-      Result page
+      <PageTitle title={'Result'}/>
+      <ResultList />
     </>
   )
 }

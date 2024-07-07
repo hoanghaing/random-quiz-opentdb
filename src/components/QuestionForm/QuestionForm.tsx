@@ -3,17 +3,23 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { useCategories, createQuestions } from '../api';
-import { LEVEL } from '../constants';
+import { useCategories, createQuestions } from '../../api';
+import { LEVEL, NUM_OF_QUESTION } from '../../constants';
+import { questionsAtom } from '../../stores';
+import { useAtom } from 'jotai';
 import {
   CategoryItem,
   DifficultyItem
-} from '../types';
+} from '../../types';
+import {
+  randomizeAndGenerateQuestion
+} from '../../utils';
 
 function QuestionForm() {
   const { categories, isLoading } = useCategories();
   const [selectedCategory, setCategory] = useState("");
   const [selectedDifficulty, setDifficulty] = useState('');
+  const [, setQuestions] = useAtom(questionsAtom);
 
   const handleChangecategory = (event: SelectChangeEvent) => {
     setCategory(event.target.value);
@@ -22,14 +28,17 @@ function QuestionForm() {
     setDifficulty(event.target.value);
   };
 
-  const handleCreateQuestion = () => {
+  const handleCreateQuestion = async () => {
+    if (!selectedCategory || !selectedDifficulty) return
     const params = {
-      amount: 5,
+      amount: NUM_OF_QUESTION,
       categoryId: selectedCategory,
       difficultyLevel: selectedDifficulty,
     }
-    const result = createQuestions(params);
-    console.log(result);
+    const { results } = await createQuestions(params);
+    if (results) {
+      setQuestions(randomizeAndGenerateQuestion(results));
+    }
   };
 
   const categoryItems = () => {
@@ -91,7 +100,6 @@ function QuestionForm() {
             Create
           </Button>
         </FormControl>
-
       </div>
 
     </>

@@ -4,13 +4,22 @@ export interface CreateQuestionsParams {
   difficultyLevel: string;
 }
 
-export interface Question {
-  question: string;
-  correct_answer: string;
-  incorrect_answers: string[];
+export interface ResponseData {
+  results: ResponseQuestionItemType[];
+  response_code: number
 }
 
-export interface ResponseData {
-  results: Question[];
-  response_code: number
+export interface ResponseQuestionItemType {
+  type: string,
+  difficulty: string,
+  category: string,
+  question: string,
+  correct_answer: string,
+  incorrect_answers: string[]
+}
+
+export interface ConvertedQuizItem {
+  question: string;
+  correct_answer: string;
+  answers: string[];
 }
