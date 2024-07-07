@@ -24,6 +24,7 @@ function QuestionForm() {
   const handleChangecategory = (event: SelectChangeEvent) => {
     setCategory(event.target.value);
   };
+  
   const handleChangeceDifficuity = (event: SelectChangeEvent) => {
     setDifficulty(event.target.value);
   };

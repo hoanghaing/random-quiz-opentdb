@@ -3,8 +3,8 @@ import {
   CreateQuestionsParams,
   ResponseData
 } from '../types'
+
 const BASE_URL = "https://opentdb.com/api.php"
-// https://opentdb.com/api.php?amount=5&category=11&difficulty=easy&type=multiple
 
 const createQuestions = async ({ amount, categoryId, difficultyLevel }: CreateQuestionsParams): Promise<ResponseData> => {
   try {

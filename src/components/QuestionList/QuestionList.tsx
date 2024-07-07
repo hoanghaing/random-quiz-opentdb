@@ -16,6 +16,7 @@ function QuestionList() {
   const handleSubmit = () => {
     navigate('/result');
   };
+  
   const renderQuestionList = () => {
     const renderList: React.ReactNode[] = [];
 

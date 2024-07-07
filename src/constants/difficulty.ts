@@ -12,7 +12,9 @@ const LEVEL = [
     value: 'hard'
   }
 ]
+
 const NUM_OF_QUESTION = 5;
+
 export {
   LEVEL,
   NUM_OF_QUESTION

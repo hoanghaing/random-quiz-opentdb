@@ -1,11 +1,13 @@
 import useSWR from 'swr'
 import axios from 'axios'
 
+const BASE_URL = 'https://opentdb.com/api_category.php';
+
 const fetcher = async (url: string) => {
   const { data } = await axios.get(url);
   return data;
 };
-const BASE_URL = 'https://opentdb.com/api_category.php';
+
 const useCategories = () => {
   const { data } = useSWR(BASE_URL, fetcher);
   return {
@@ -14,6 +16,7 @@ const useCategories = () => {
     isError: false,
   };
 };
+
 export {
   useCategories
 };
